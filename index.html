@@ -18,31 +18,31 @@
 			const dataSet = [
 				{
 					name: "Jim Milton",
-					dataHealth: 100,
+					missingFields: 100,
 				},
 				{
 					name: "Jack Marston",
-					dataHealth: 50,
+					missingFields: 50,
 				},
 				{
 					name: "Mary McIntyre",
-					dataHealth: 65,
+					missingFields: 12,
 				},
 				{
 					name: "Hali Baks",
-					dataHealth: 65,
+					missingFields: 65,
 				},
 				{
 					name: "Nice Shoes",
-					dataHealth: 65,
+					missingFields: 65,
 				},
 				{
 					name: "Fairy God Mother",
-					dataHealth: 65,
+					missingFields: 25,
 				},
 				{
 					name: "Space Mountain",
-					dataHealth: 65,
+					missingFields: 80,
 				},
 			];
 
@@ -64,7 +64,7 @@
 				.enter()
 				.append("circle")
 				.attr("r", function (d) {
-					return d.dataHealth;
+					return d.missingFields;
 				})
 				.on("mouseover", function (event, d) {
 					console.log(d);
@@ -72,7 +72,7 @@
 						.transition()
 						.duration(200)
 						.style("opacity", 1)
-						.text(`Name: ${d.name} Data Health: ${d.dataHealth}`);
+						.text(`Name: ${d.name} Data Health: ${d.missingFields}`);
 				})
 				.on("mouseout", function (event, d) {
 					d3.select("#tooltip").style("opacity", 0);
