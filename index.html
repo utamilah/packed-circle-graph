@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>D3 Packed Circle</title>
+	</head>
+	<body>
+		<section id="wrapper">
+			<div id="datahealth"></div>
+		</section>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
+		<script>
+			const width = 500;
+			const height = 500;
+
+			const dataSet = [
+				{
+					name: "Jim Milton",
+					dataHealth: 100,
+				},
+				{
+					name: "Jack Marston",
+					dataHealth: 50,
+				},
+				{
+					name: "Mary McIntyre",
+					dataHealth: 65,
+				},
+				{
+					name: "Hali Baks",
+					dataHealth: 65,
+				},
+				{
+					name: "Nice Shoes",
+					dataHealth: 65,
+				},
+				{
+					name: "Fairy God Mother",
+					dataHealth: 65,
+				},
+				{
+					name: "Space Mountain",
+					dataHealth: 65,
+				},
+			];
+
+			d3.select("#wrapper")
+				.append("div")
+				.attr("id", "tooltip")
+				.attr("style", "position: absolute; opacity: 0;");
+
+			const svg = d3
+				.select("#datahealth")
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height);
+
+			const node = svg
+				.append("g")
+				.selectAll("circle")
+				.data(dataSet)
+				.enter()
+				.append("circle")
+				.attr("r", function (d) {
+					return d.dataHealth;
+				})
+				.on("mouseover", function (event, d) {
+					console.log(d);
+					d3.select("#tooltip")
+						.transition()
+						.duration(200)
+						.style("opacity", 1)
+						.text(`Name: ${d.name} Data Health: ${d.dataHealth}`);
+				})
+				.on("mouseout", function (event, d) {
+					d3.select("#tooltip").style("opacity", 0);
+				})
+				.style("fill", "#69b3a2")
+				.style("fill-opacity", 0.3)
+				.attr("stroke", "#69a2b2")
+				.style("stroke-width", 4);
+
+			const simulation = d3
+				.forceSimulation()
+				.force(
+					"center",
+					d3
+						.forceCenter()
+						.x(width / 2)
+						.y(height / 2)
+				)
+				.force("charge", d3.forceManyBody().strength(0.5))
+				.force(
+					"collide",
+					d3.forceCollide().strength(0.01).radius(100).iterations(1)
+				);
+
+			simulation.nodes(dataSet).on("tick", function (d) {
+				node
+					.attr("cx", function (d) {
+						return d.x;
+					})
+					.attr("cy", function (d) {
+						return d.y;
+					});
+			});
+		</script>
+	</body>
+</html>
