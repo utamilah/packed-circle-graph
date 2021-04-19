@@ -18,31 +18,31 @@
 			const dataSet = [
 				{
 					name: "Jim Milton",
-					missingFields: 100,
+					missingFields: 3 * 10,
 				},
 				{
 					name: "Jack Marston",
-					missingFields: 50,
+					missingFields: 1 * 10,
 				},
 				{
 					name: "Mary McIntyre",
-					missingFields: 12,
+					missingFields: 2 * 10,
 				},
 				{
 					name: "Hali Baks",
-					missingFields: 65,
+					missingFields: 5 * 10,
 				},
 				{
 					name: "Nice Shoes",
-					missingFields: 65,
+					missingFields: 0,
 				},
 				{
 					name: "Fairy God Mother",
-					missingFields: 25,
+					missingFields: 0,
 				},
 				{
 					name: "Space Mountain",
-					missingFields: 80,
+					missingFields: 6,
 				},
 			];
 
@@ -94,7 +94,7 @@
 				.force("charge", d3.forceManyBody().strength(0.5))
 				.force(
 					"collide",
-					d3.forceCollide().strength(0.01).radius(100).iterations(1)
+					d3.forceCollide().strength(0.01).radius(50).iterations(1)
 				);
 
 			simulation.nodes(dataSet).on("tick", function (d) {
